@@ -39,6 +39,13 @@ btn_agregar = tk.Button(
 )
 btn_agregar.grid(row=0, column=0, padx=5)
 
+btn_eliminar = tk.Button(
+  frame_buttons, 
+  text="Eliminar", 
+  command=lambda: eliminar_usuario(tree, lambda: cargar_usuarios(tree))
+)
+btn_eliminar.grid(row=0, column=2, padx=5)
+
 # Tabla de usuarios
 frame_table = tk.Frame(root)
 frame_table.pack(pady=10)

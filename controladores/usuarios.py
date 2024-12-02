@@ -47,3 +47,20 @@ def agregar_usuario(nombre, edad, entry_nombre, entry_edad, cargar_usuarios):
   cargar_usuarios()
   messagebox.showinfo("Éxito", "Usuario agregado exitosamente")
 
+def eliminar_usuario(tree, cargar_usuarios):
+  seleccion = tree.selection()
+
+  if not seleccion:
+    messagebox.showerror("Error", "Seleccione un usuario para eliminar")
+    return
+  
+  usuario_id = tree.item(seleccion[0])['values'][0]
+
+  conn = sqlite3.connect('usuarios.db')
+  cursor = conn.cursor()
+  cursor.execute('DELETE FROM usuarios WHERE id = ?', (usuario_id,))
+  conn.commit()
+  conn.close()
+
+  cargar_usuarios()
+  messagebox.showinfo("Éxito", "Usuario eliminado exitosamente")
