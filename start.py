@@ -39,6 +39,13 @@ btn_agregar = tk.Button(
 )
 btn_agregar.grid(row=0, column=0, padx=5)
 
+btn_actualizar = tk.Button(
+  frame_buttons, 
+  text="Actualizar", 
+  command=lambda: actualizar_usuario(tree, entry_nombre.get(), entry_edad.get(), entry_nombre, entry_edad, lambda: cargar_usuarios(tree))
+)
+btn_actualizar.grid(row=0, column=1, padx=5)
+
 btn_eliminar = tk.Button(
   frame_buttons, 
   text="Eliminar", 

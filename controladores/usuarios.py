@@ -64,3 +64,31 @@ def eliminar_usuario(tree, cargar_usuarios):
 
   cargar_usuarios()
   messagebox.showinfo("Éxito", "Usuario eliminado exitosamente")
+
+def actualizar_usuario(tree, nombre, edad, entry_nombre, entry_edad, cargar_usuarios):
+  seleccion = tree.selection()
+  
+  if not seleccion:
+    messagebox.showerror("Error", "Selecciones un usuario para actualizar")
+    return
+  
+  usuario_id = tree.item(seleccion[0])['values'][0]
+
+  if not nombre or not edad.isdigit():
+    messagebox.showerror("Error", "Por favor, ingrese datos válidos")
+    return
+
+  conn = sqlite3.connect('usuarios.db')
+  cursor = conn.cursor()
+  cursor.execute('UPDATE usuarios SET nombre = ?, edad = ? WHERE id = ?', (
+    nombre,
+    int(edad),
+    usuario_id
+  ))
+  conn.commit()
+  conn.close()
+
+  entry_nombre.delete(0, "end")
+  entry_edad.delete(0, "end")
+  cargar_usuarios()
+  messagebox.showinfo("Éxito", "Usuario actualizado exitosamente")
